@@ -48,6 +48,14 @@ namespace Adform_ToDo.DAL
         /// <returns> added label record Dto. </returns>
         public async Task<LabelDto> AddLabel(CreateLabelDto createLabelDto)
         {
+            LabelEntity label = await _toDoDbContext.Labels
+                .Where(p => p.Description.ToLower() == createLabelDto.Description.ToLower()).FirstOrDefaultAsync();
+            // check for existing label
+            if (label != null)
+            {
+                return null;
+            }
+
             LabelEntity labelDbDto = _mapper.Map<LabelEntity>(createLabelDto);
             labelDbDto.CreatedBy = createLabelDto.CreatedBy;
             _toDoDbContext.Labels.Add(labelDbDto);
