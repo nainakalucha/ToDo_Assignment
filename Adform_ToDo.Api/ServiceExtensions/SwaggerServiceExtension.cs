@@ -30,7 +30,9 @@ namespace Adform_ToDo.API.Services
                     Scheme = "Bearer"
                 });
                 p.OperationFilter<CorrelationIdOperationFilter>();
+                p.OperationFilter<RemoveVersionParameterFilter>();
                 p.SchemaFilter<SampleSchemaFilter>();
+                p.DocumentFilter<ReplaceVersionWithExactValueInPathFilter>();
                 p.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
