@@ -40,7 +40,6 @@ namespace Adform_ToDo.API.Controllers.v1
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType( typeof(RequestResponse<PagedList<LabelDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Produces("application/json", "application/xml", Type = typeof(List<string>))]
         [HttpGet]
         public async Task<IActionResult> GetAllLabels([FromQuery]PaginationParameters parameters)
         {
@@ -100,7 +99,6 @@ namespace Adform_ToDo.API.Controllers.v1
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(RequestResponse<LabelDto>),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Produces("application/json", "application/xml", Type = typeof(List<string>))]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetLabelById(long id)
         {
@@ -137,7 +135,6 @@ namespace Adform_ToDo.API.Controllers.v1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(LabelDto), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Produces("application/json", "application/xml", Type = typeof(List<string>))]
         [HttpPost]
         public async Task<IActionResult> CreateLabel(CreateLabelModel createLabelModel, ApiVersion version)
         {
@@ -177,7 +174,6 @@ namespace Adform_ToDo.API.Controllers.v1
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(RequestResponse<string>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Produces("application/json", "application/xml", Type = typeof(List<string>))]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLabel(long id)
         {

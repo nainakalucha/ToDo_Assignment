@@ -139,7 +139,6 @@ namespace Adform_ToDo.API.Controllers.v1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ToDoItemDto), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Produces("application/json", "application/xml", Type = typeof(List<string>))]
         [HttpPost]
         public async Task<IActionResult> CreateToDoItem(CreateToDoItemModel createToDoItem, ApiVersion version)
         {
@@ -173,7 +172,6 @@ namespace Adform_ToDo.API.Controllers.v1
         [ProducesResponseType(typeof(RequestResponse<ToDoItemModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Produces("application/json", "application/xml", Type = typeof(List<string>))]
         [HttpPut]
         public async Task<IActionResult> PutToDoItem(UpdateToDoItemModel itemToUpdate)
         {
@@ -221,7 +219,6 @@ namespace Adform_ToDo.API.Controllers.v1
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(RequestResponse<string>),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Produces("application/json", "application/xml", Type = typeof(List<string>))]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteToDoItem(long id)
         {
@@ -260,7 +257,6 @@ namespace Adform_ToDo.API.Controllers.v1
         [ProducesResponseType(typeof(RequestResponse<ToDoItemModel>),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Produces("application/json", "application/xml", Type = typeof(List<string>))]
         [HttpPatch]
         public async Task<IActionResult> Patch(long toDoItemId, [FromBody]JsonPatchDocument<UpdateToDoItemModel> itemToUpdatePatchDoc)
         {
@@ -330,7 +326,6 @@ namespace Adform_ToDo.API.Controllers.v1
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(RequestResponse<string>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Produces("application/json", "application/xml", Type = typeof(List<string>))]
         [HttpPut("AssignLabelToItem")]
         public async Task<IActionResult> AssignLabelToItem(AssignLabelToItemModel assignLabelToItemModel)
         {

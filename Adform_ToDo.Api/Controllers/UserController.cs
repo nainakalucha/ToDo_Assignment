@@ -39,7 +39,6 @@ namespace Adform_ToDo.Controllers
         [ProducesResponseType(typeof(RequestResponse<string>),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Produces("application/json", "application/xml", Type = typeof(List<string>))]
         [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginModel loginModel)
         {
@@ -77,7 +76,6 @@ namespace Adform_ToDo.Controllers
         [ProducesResponseType(typeof(RequestResponse<string>),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Produces("application/json", "application/xml", Type = typeof(List<string>))]
         [HttpPost("Register")]
         public async Task<IActionResult> Register(CreateUserModel createUserModel)
         {
