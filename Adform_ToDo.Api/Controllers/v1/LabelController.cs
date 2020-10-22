@@ -135,7 +135,7 @@ namespace Adform_ToDo.API.Controllers.v1
         /// <response code="401"> Authorization information is missing or invalid.</response>
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(LabelDto), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Produces("application/json", "application/xml", Type = typeof(List<string>))]
         [HttpPost]
@@ -163,7 +163,7 @@ namespace Adform_ToDo.API.Controllers.v1
                     Message = "The Label already exists. Try another one."
                 });
             }
-            return CreatedAtAction(nameof(GetLabelById), new { createdLabel.LabelId, version = $"{version}" }, createdLabel);
+            return CreatedAtRoute(new { createdLabel.LabelId, version = $"{version}" }, createdLabel);
         }
 
         /// <summary>

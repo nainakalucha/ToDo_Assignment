@@ -137,7 +137,7 @@ namespace Adform_ToDo.API.Controllers.v1
         /// <response code="400"> The provided todoitem id should be positive integer.</response>
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ToDoItemDto), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Produces("application/json", "application/xml", Type = typeof(List<string>))]
         [HttpPost]
@@ -157,7 +157,7 @@ namespace Adform_ToDo.API.Controllers.v1
             createToDoItem.CreatedBy = userId;
             CreateToDoItemDto createToDoItemDto = _mapper.Map<CreateToDoItemDto>(createToDoItem);
             ToDoItemDto createdToDoItem = await _toDoItemManager.AddToDoItem(createToDoItemDto);
-            return CreatedAtAction("GetToDoItemById", new { createdToDoItem.ToDoItemId, version = $"{version}" }, createdToDoItem);
+            return CreatedAtRoute(new { createdToDoItem.ToDoItemId, version = $"{version}" }, createdToDoItem);
         }
 
         /// <summary>

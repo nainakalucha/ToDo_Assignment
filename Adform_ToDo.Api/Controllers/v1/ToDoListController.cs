@@ -136,7 +136,7 @@ namespace Adform_ToDo.API.Controllers.v1
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ToDoListModel), StatusCodes.Status201Created)]
         [HttpPost]
         public async Task<IActionResult> CreateToDoList(CreateToDoListModel createToDoList, ApiVersion version)
         {
@@ -155,7 +155,7 @@ namespace Adform_ToDo.API.Controllers.v1
             CreateToDoListDto createToDoListDto = _mapper.Map<CreateToDoListDto>(createToDoList);
             ToDoListDto createdToDoList = await _toDoListManager.CreateToDoList(createToDoListDto);
             ToDoListModel createdToDoListModel = _mapper.Map<ToDoListModel>(createdToDoList);
-            return CreatedAtAction(nameof(GetToDoListById), new { createdToDoListModel.ToDoListId, version = $"{version}" }, createdToDoListModel);
+            return CreatedAtRoute(new { createdToDoListModel.ToDoListId, version = $"{version}" }, createdToDoListModel);
         }
 
         /// <summary>
