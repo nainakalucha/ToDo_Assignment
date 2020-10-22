@@ -38,7 +38,7 @@ namespace Adform_ToDo.API.Controllers.v1
         /// <response code="404"> Error: 404 not found </response>
         /// <response code="401"> Authorization information is missing or invalid.</response>
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType( typeof(RequestResponse<PagedList<LabelDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Produces("application/json", "application/xml", Type = typeof(List<string>))]
         [HttpGet]
@@ -98,7 +98,7 @@ namespace Adform_ToDo.API.Controllers.v1
         /// <response code="404"> A label with the specified label ID was not found.</response>
         /// <response code="401"> Authorization information is missing or invalid.</response>
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(RequestResponse<LabelDto>),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Produces("application/json", "application/xml", Type = typeof(List<string>))]
         [HttpGet("{id}")]
@@ -175,7 +175,7 @@ namespace Adform_ToDo.API.Controllers.v1
         /// <response code="404"> A label with the specified label ID was not found.</response>
         /// <response code="401"> Authorization information is missing or invalid.</response>
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(RequestResponse<string>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Produces("application/json", "application/xml", Type = typeof(List<string>))]
         [HttpDelete("{id}")]
@@ -186,7 +186,7 @@ namespace Adform_ToDo.API.Controllers.v1
             if (deletedItem == 1)
             {
                 return Ok(
-                    new RequestResponse<object>
+                    new RequestResponse<string>
                     {
                         IsSuccess = true,
                         Result = "Deleted successful",

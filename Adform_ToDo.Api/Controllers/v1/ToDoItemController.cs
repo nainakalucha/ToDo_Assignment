@@ -39,7 +39,7 @@ namespace Adform_ToDo.API.Controllers.v1
         /// <response code="404"> A record with the specified todolist ID was not found.</response>
         /// <response code="401"> Authorization information is missing or invalid.</response>
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(RequestResponse<PagedList<ToDoItemDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Produces("application/json", "application/xml", Type = typeof(List<string>))]
         [HttpGet]
@@ -98,7 +98,7 @@ namespace Adform_ToDo.API.Controllers.v1
         /// <response code="404"> Error: 404 not found.</response>
         /// <response code="401"> Authorization information is missing or invalid.</response>
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType( typeof(RequestResponse<ToDoItemDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Produces("application/json", "application/xml", Type = typeof(List<string>))]
         [HttpGet("{id}")]
@@ -170,7 +170,7 @@ namespace Adform_ToDo.API.Controllers.v1
         /// <response code="401"> Authorization information is missing or invalid.</response>
         /// <response code="400"> The provided todoitem id should be positive integer.</response>
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(RequestResponse<ToDoItemModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Produces("application/json", "application/xml", Type = typeof(List<string>))]
@@ -219,7 +219,7 @@ namespace Adform_ToDo.API.Controllers.v1
         /// <response code="404"> A record with the specified todolist ID was not found.</response>
         /// <response code="401"> Authorization information is missing or invalid.</response>
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(RequestResponse<string>),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Produces("application/json", "application/xml", Type = typeof(List<string>))]
         [HttpDelete("{id}")]
@@ -230,7 +230,7 @@ namespace Adform_ToDo.API.Controllers.v1
             if (deletedToDoItem == 1)
             {
                 return Ok(
-                    new RequestResponse<object>
+                    new RequestResponse<string>
                     {
                         IsSuccess = true,
                         Result = "Deleted",
@@ -257,7 +257,7 @@ namespace Adform_ToDo.API.Controllers.v1
         /// <response code="401"> Authorization information is missing or invalid.</response>
         /// <response code="400"> The provided todoitem id should be positive integer.</response>
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(RequestResponse<ToDoItemModel>),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Produces("application/json", "application/xml", Type = typeof(List<string>))]
@@ -328,7 +328,7 @@ namespace Adform_ToDo.API.Controllers.v1
         /// <response code="404"> Error: 404 not found.</response>
         /// <response code="401"> Authorization information is missing or invalid.</response>
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(RequestResponse<string>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Produces("application/json", "application/xml", Type = typeof(List<string>))]
         [HttpPut("AssignLabelToItem")]
@@ -342,7 +342,7 @@ namespace Adform_ToDo.API.Controllers.v1
             if (isAssigned)
             {
                 return Ok(
-                    new RequestResponse<object>
+                    new RequestResponse<string>
                     {
                         IsSuccess = true,
                         Result = "Label assignment to ToDoItem successful"

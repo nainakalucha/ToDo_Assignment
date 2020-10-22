@@ -40,9 +40,8 @@ namespace Adform_ToDo.API.Controllers.v1
         /// <response code="404"> A record with the specified todolist ID was not found.</response>
         /// <response code="401"> Authorization information is missing or invalid.</response>
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(RequestResponse<PagedList<ToDoListDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Produces("application/json", "application/xml", Type = typeof(List<string>))]
         [HttpGet]
         public async Task<IActionResult> GetAllToDoLists([FromQuery]PaginationParameters parameters)
         {
@@ -99,9 +98,8 @@ namespace Adform_ToDo.API.Controllers.v1
         /// <response code="404"> A record with the specified todolist ID was not found.</response>
         /// <response code="401"> Authorization information is missing or invalid.</response>
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(RequestResponse<ToDoListDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Produces("application/json", "application/xml", Type = typeof(List<string>))]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetToDoListById(long id)
         {
@@ -138,8 +136,7 @@ namespace Adform_ToDo.API.Controllers.v1
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(RequestResponse<ToDoListModel>), StatusCodes.Status200OK)]
-        [Produces("application/json", "application/xml", Type = typeof(List<string>))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpPost]
         public async Task<IActionResult> CreateToDoList(CreateToDoListModel createToDoList, ApiVersion version)
         {
@@ -174,7 +171,6 @@ namespace Adform_ToDo.API.Controllers.v1
         [ProducesResponseType(typeof(RequestResponse<ToDoListModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Produces("application/json", "application/xml", Type = typeof(List<string>))]
         [HttpPut]
         public async Task<IActionResult> PutToDoList(UpdateToDoListModel listToUpdate)
         {
@@ -221,9 +217,8 @@ namespace Adform_ToDo.API.Controllers.v1
         /// <response code="404"> A record with the specified todolist ID was not found.</response>
         /// <response code="401"> Authorization information is missing or invalid.</response>
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(RequestResponse<string>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Produces("application/json", "application/xml", Type = typeof(List<string>))]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteToDoList(long id)
         {
@@ -232,7 +227,7 @@ namespace Adform_ToDo.API.Controllers.v1
             if (deletedItem == 1)
             {
                 return Ok(
-                    new RequestResponse<object>
+                    new RequestResponse<string>
                     {
                         IsSuccess = true,
                         Result = "Deleted",
@@ -262,7 +257,6 @@ namespace Adform_ToDo.API.Controllers.v1
         [ProducesResponseType(typeof(RequestResponse<ToDoListModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Produces("application/json", "application/xml", Type = typeof(List<string>))]
         [HttpPatch]
         public async Task<IActionResult> PatchToDoList(long toDoListId, [FromBody]JsonPatchDocument<UpdateToDoListModel> listToUpdatePatchDoc)
         {
@@ -330,9 +324,8 @@ namespace Adform_ToDo.API.Controllers.v1
         /// <response code="404"> Error: 404 not found.</response>
         /// <response code="401"> Authorization information is missing or invalid.</response>
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(RequestResponse<string>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Produces("application/json", "application/xml", Type = typeof(List<string>))]
         [HttpPut("AssignLabelToList")]
         public async Task<IActionResult> AssignLabelToList(AssignLabelToListModel assignLabelToListModel)
         {
@@ -344,7 +337,7 @@ namespace Adform_ToDo.API.Controllers.v1
             if (isAssigned)
             {
                 return Ok(
-                    new RequestResponse<object>
+                    new RequestResponse<string>
                     {
                         IsSuccess = true,
                         Result = "Label assignment to ToDoList successful"

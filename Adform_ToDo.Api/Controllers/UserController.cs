@@ -36,7 +36,7 @@ namespace Adform_ToDo.Controllers
         /// </summary>
         /// <param name="loginModel">Conatains UserName,Password </param>
         /// <returns>ApiResponse on User Login </returns>
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(RequestResponse<string>),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Produces("application/json", "application/xml", Type = typeof(List<string>))]
@@ -74,7 +74,7 @@ namespace Adform_ToDo.Controllers
         /// </summary>
         /// <param name="createUserModel"></param>
         /// <returns>Api Response based on success/failure.</returns>
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(RequestResponse<string>),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Produces("application/json", "application/xml", Type = typeof(List<string>))]
