@@ -354,7 +354,7 @@ namespace Adform_ToDo.API.Controllers.v1
                 new RequestResponse<string>
                 {
                     IsSuccess = false,
-                    Result = "Label assignment to ToDoItem failed"
+                    Result = "Label assignment to ToDoItem failed. Either ToDoItem/Label does not exist for the user."
                 });
         }
     }

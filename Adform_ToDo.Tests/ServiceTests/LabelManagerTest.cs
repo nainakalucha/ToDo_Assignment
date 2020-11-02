@@ -32,6 +32,7 @@ namespace Adform_ToDo.Tests.ServiceTests
         [SetUp]
         public void Setup()
         {
+            _userId = 1;
             _labelDbOps = new Mock<ILabelDal>();
             _labelContract = new LabelManager(_labelDbOps.Object);
             _labelDbOps.Setup(p => p.AddLabel(It.IsAny<CreateLabelDto>())).Returns(Task.FromResult(_labelDto));

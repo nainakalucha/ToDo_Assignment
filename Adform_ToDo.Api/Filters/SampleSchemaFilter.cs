@@ -24,15 +24,9 @@ namespace Adform_ToDo.Filters
         {
             return type.Name switch
             {
-                "JsonPatchDocument" => new OpenApiObject
-                {
-                    ["Op"] = new OpenApiString("Review"),
-                    ["Path"] = new OpenApiString("/firstname"),
-                    ["Value"] = new OpenApiString("Shayna")
-                },
                 "CreateLabelModel" => new OpenApiObject
                 {
-                    ["Description"] = new OpenApiString("Review")
+                    ["Description"] = new OpenApiString("Animation")
                 },
                 "DeleteLabelModel" => new OpenApiObject
                 {
@@ -60,7 +54,7 @@ namespace Adform_ToDo.Filters
                 "UpdateToDoItemModel" => new OpenApiObject
                 {
                     ["ToDoItemId"] = new OpenApiLong(2),
-                    ["Notes"] = new OpenApiString("Review romantic movies")
+                    ["Notes"] = new OpenApiString("Review animation movies")
                 },
                 "DeleteToDoItemModel" => new OpenApiObject
                 {
@@ -68,12 +62,12 @@ namespace Adform_ToDo.Filters
                 },
                 "CreateToDoListModel" => new OpenApiObject
                 {
-                    ["Description"] = new OpenApiString("List of movies")
+                    ["Description"] = new OpenApiString("List of animation movies")
                 },
                 "UpdateToDoListModel" => new OpenApiObject
                 {
                     ["ToDoListId"] = new OpenApiLong(2),
-                    ["Description"] = new OpenApiString("List of action movies")
+                    ["Description"] = new OpenApiString("List of animation movies")
                 },
                 "DeleteToDoListModel" => new OpenApiObject
                 {
@@ -81,14 +75,14 @@ namespace Adform_ToDo.Filters
                 },
                 "CreateUserModel" => new OpenApiObject
                 {
-                    ["FirstName"] = new OpenApiString("Sunaina"),
-                    ["LastName"] = new OpenApiString("Kalucha"),
-                    ["UserName"] = new OpenApiString("Sunaina"),
+                    ["FirstName"] = new OpenApiString("FirstName"),
+                    ["LastName"] = new OpenApiString("LastName"),
+                    ["UserName"] = new OpenApiString("UserName"),
                     ["Password"] = new OpenApiString("12345"),
                 },
                 "LoginModel" => new OpenApiObject
                 {
-                    ["UserName"] = new OpenApiString("Sunaina"),
+                    ["UserName"] = new OpenApiString("UserName"),
                     ["Password"] = new OpenApiString("12345"),
                 },
                 _ => null,
