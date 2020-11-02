@@ -52,7 +52,7 @@ Above mutation will generate token in result field.
 
 Set HttpHeaders as below for accessing api resources:
 {
-  "Authorization":"Bearer (copied token)"
+  "Authorization":"Bearer copied_token_from_step_2"
 }
 
 Note - 
