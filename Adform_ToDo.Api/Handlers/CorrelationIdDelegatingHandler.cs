@@ -15,6 +15,10 @@ namespace Adform_ToDo.Handlers
     {
         private readonly ILogger<CorrelationIdDelegatingHandler> _logger;
 
+        /// <summary>
+        /// CorrelationIdDelegatingHandler
+        /// </summary>
+        /// <param name="logger"></param>
         public CorrelationIdDelegatingHandler(ILogger<CorrelationIdDelegatingHandler> logger)
         {
             _logger = logger;

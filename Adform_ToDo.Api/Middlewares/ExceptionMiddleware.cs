@@ -18,6 +18,12 @@ namespace Adform_ToDo.API.Middlewares
         private readonly ILogger _logger;
         private readonly ICorrelationContextAccessor _correlationContextAccessor;
 
+        /// <summary>
+        /// ExceptionMiddleware
+        /// </summary>
+        /// <param name="next"></param>
+        /// <param name="loggerFactory"></param>
+        /// <param name="correlationContextAccessor"></param>
         public ExceptionMiddleware(RequestDelegate next, ILoggerFactory loggerFactory, ICorrelationContextAccessor correlationContextAccessor)
         {
             _logger = loggerFactory.CreateLogger<ExceptionMiddleware>();

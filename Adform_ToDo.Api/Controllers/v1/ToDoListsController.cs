@@ -5,68 +5,73 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.JsonPatch.Operations;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Collections.Generic;
+using Swashbuckle.AspNetCore.Filters;
 using System.Threading.Tasks;
 
 namespace Adform_ToDo.API.Controllers.v1
 {
     /// <summary>
-    /// TodoItems controller.
+    /// Todolists controller.
     /// </summary>
     [Authorize(Roles = "User,Admin")]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    public class ToDoItemController : ControllerBase
+    public class ToDoListsController : ControllerBase
     {
-        private readonly IToDoItemManager _toDoItemManager;
+        private readonly IToDoListManager _toDoListManager;
         private readonly IMapper _mapper;
 
-        public ToDoItemController(IToDoItemManager toDoItemMgr, IMapper mapper)
+        /// <summary>
+        /// ToDoListsController Constructor
+        /// </summary>
+        /// <param name="toDoListMgr"></param>
+        /// <param name="mapper"></param>
+        public ToDoListsController(IToDoListManager toDoListMgr, IMapper mapper)
         {
-            _toDoItemManager = toDoItemMgr;
+            _toDoListManager = toDoListMgr;
             _mapper = mapper;
         }
 
         /// <summary>
-        /// Get all todoitem records.
+        /// Get all todolist records.
         /// </summary>
         /// <param name="parameters"></param>
         /// <returns>Returns Action Result type based on Success or Failure. </returns>
-        /// <response code="200"> Gets all todoitem reecords.</response>
+        /// <response code="200"> Gets all todolist records.</response>
         /// <response code="404"> A record with the specified todolist ID was not found.</response>
         /// <response code="401"> Authorization information is missing or invalid.</response>
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(RequestResponse<PagedList<ToDoItemDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(RequestResponse<PagedList<ToDoListDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Produces("application/json", "application/xml", Type = typeof(List<string>))]
         [HttpGet]
-        public async Task<IActionResult> GetAllToDoItems([FromQuery]PaginationParameters parameters)
+        public async Task<IActionResult> GetAllToDoLists([FromQuery]PaginationParameters parameters)
         {
             long userId = long.Parse(HttpContext.Items["UserId"].ToString());
-            PagedList<ToDoItemDto> pagedToDoItemDto = await _toDoItemManager.GetToDoItems(parameters, userId);
-            if (pagedToDoItemDto != null)
+            PagedList<ToDoListDto> pagedToDoListDto = await _toDoListManager.GetToDoLists(parameters, userId);
+            if (pagedToDoListDto != null)
             {
-                if (pagedToDoItemDto.Count > 0)
+                if (pagedToDoListDto.Count > 0)
                 {
                     var metadata = new
                     {
-                        pagedToDoItemDto.TotalCount,
-                        pagedToDoItemDto.PageSize,
-                        pagedToDoItemDto.CurrentPage,
-                        pagedToDoItemDto.TotalPages,
-                        pagedToDoItemDto.HasNext,
-                        pagedToDoItemDto.HasPrevious
+                        pagedToDoListDto.TotalCount,
+                        pagedToDoListDto.PageSize,
+                        pagedToDoListDto.CurrentPage,
+                        pagedToDoListDto.TotalPages,
+                        pagedToDoListDto.HasNext,
+                        pagedToDoListDto.HasPrevious
                     };
                     Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
                     return Ok(
-                        new RequestResponse<PagedList<ToDoItemDto>>
+                        new RequestResponse<PagedList<ToDoListDto>>
                         {
                             IsSuccess = true,
-                            Result = pagedToDoItemDto,
-                            Message = "Items retrieval successful."
+                            Result = pagedToDoListDto,
+                            Message = "Lists retrieval successful."
                         });
                 }
                 else
@@ -75,8 +80,8 @@ namespace Adform_ToDo.API.Controllers.v1
                         new RequestResponse<string>
                         {
                             IsSuccess = false,
-                            Result = "No ToDoItem records present.",
-                            Message = " Please add few ToDoItems first."
+                            Result = "No ToDoList records present.",
+                            Message = " Please add few ToDoLists first."
                         });
                 }
             }
@@ -85,36 +90,34 @@ namespace Adform_ToDo.API.Controllers.v1
                 {
                     IsSuccess = false,
                     Result = "No Results Found.",
-                    Message = "No data exist. Please add todo items first."
+                    Message = "Please add items to list first."
                 });
         }
 
         /// <summary>
-        /// Get todoitem based on ID.
+        /// Get todolist record based on ID.
         /// </summary> 
-        /// <param name="id"></param>
+        /// <param name="id" example="1"></param>
         /// <returns>Returns Action result type based on Success/Failure.</returns>
-        /// <response code="200"> Gets specific todoitem record.</response>
-        /// <response code="404"> Error: 404 not found.</response>
+        /// <response code="200"> Gets specific todolist record.</response>
+        /// <response code="404"> A record with the specified todolist ID was not found.</response>
         /// <response code="401"> Authorization information is missing or invalid.</response>
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType( typeof(RequestResponse<ToDoItemDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(RequestResponse<ToDoListDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Produces("application/json", "application/xml", Type = typeof(List<string>))]
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetToDoItemById(long id)
+        public async Task<IActionResult> GetToDoListById(long id)
         {
             long userId = long.Parse(HttpContext.Items["UserId"].ToString());
-
-            ToDoItemDto ToDoItemDto = await _toDoItemManager.GetToDoItemById(id, userId);
-            if (ToDoItemDto != null)
+            ToDoListDto toDoListDto = await _toDoListManager.GetToDoListById(id, userId);
+            if (toDoListDto != null)
             {
                 return Ok(
-                    new RequestResponse<ToDoItemDto>
+                    new RequestResponse<ToDoListDto>
                     {
                         IsSuccess = true,
-                        Result = ToDoItemDto,
-                        Message = "Item retrieval successful."
+                        Result = toDoListDto,
+                        Message = "ToDoList records retrieval successful."
                     });
             }
             return NotFound(
@@ -127,24 +130,23 @@ namespace Adform_ToDo.API.Controllers.v1
         }
 
         /// <summary>
-        /// Create todoitem record.
+        /// Create todolist record.
         /// </summary>
-        /// <param name="createToDoItem"></param>
+        /// <param name="createToDoList"></param>
         /// <param name="version"></param>
         /// <returns>Returns Action result type based on Success/Failure.</returns>
-        /// <response code="201"> Creates todoitem reecord and returns location where it is created.</response>
+        /// <response code="201"> Creates todolist record and returns the location where created.</response>
         /// <response code="401"> Authorization information is missing or invalid.</response>
-        /// <response code="400"> The provided todoitem id should be positive integer.</response>
+        /// <response code="400"> The provided todolistid should be positive integer.</response>
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ToDoItemDto), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ToDoListModel), StatusCodes.Status201Created)]
         [HttpPost]
-        public async Task<IActionResult> CreateToDoItem(CreateToDoItemModel createToDoItem, ApiVersion version)
+        public async Task<IActionResult> CreateToDoList(CreateToDoListModel createToDoList, ApiVersion version)
         {
             long userId = long.Parse(HttpContext.Items["UserId"].ToString());
-            if (createToDoItem == null || string.IsNullOrEmpty(createToDoItem.Notes)
-                || createToDoItem.ToDoListId == 0)
+            if (createToDoList == null || string.IsNullOrWhiteSpace(createToDoList.Description))
             {
                 return BadRequest(new RequestResponse<string>
                 {
@@ -153,31 +155,33 @@ namespace Adform_ToDo.API.Controllers.v1
                     Message = "Please enter correct values. Description should not be empty."
                 });
             }
-            createToDoItem.CreatedBy = userId;
-            CreateToDoItemDto createToDoItemDto = _mapper.Map<CreateToDoItemDto>(createToDoItem);
-            ToDoItemDto createdToDoItem = await _toDoItemManager.AddToDoItem(createToDoItemDto);
-            return CreatedAtRoute(new { createdToDoItem.ToDoItemId, version = $"{version}" }, createdToDoItem);
+            createToDoList.CreatedBy = userId;
+
+            CreateToDoListDto createToDoListDto = _mapper.Map<CreateToDoListDto>(createToDoList);
+            ToDoListDto createdToDoList = await _toDoListManager.CreateToDoList(createToDoListDto);
+            ToDoListModel createdToDoListModel = _mapper.Map<ToDoListModel>(createdToDoList);
+            return CreatedAtRoute(new { createdToDoListModel.ToDoListId, version = $"{version}" }, createdToDoListModel);
         }
 
         /// <summary>
-        /// Update specific todoitem record.
+        /// Update specific todolist record.
         /// </summary>
-        /// <param name="itemToUpdate"></param>
+        /// <param name="listToUpdate"></param>
         /// <returns>Returns ActionResult type based on Success/Failure.</returns>
-        /// <response code="200"> Updates specific todoitem reecord with details provided.</response>
+        /// <response code="200"> Updates specific todolist record with details provided.</response>
         /// <response code="404"> A record with the specified todolist ID was not found.</response>
         /// <response code="401"> Authorization information is missing or invalid.</response>
-        /// <response code="400"> The provided todoitem id should be positive integer.</response>
+        /// <response code="400"> The provided todolistid should be positive integer.</response>
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(RequestResponse<ToDoItemModel>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(RequestResponse<ToDoListModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPut]
-        public async Task<IActionResult> PutToDoItem(UpdateToDoItemModel itemToUpdate)
+        public async Task<IActionResult> PutToDoList(UpdateToDoListModel listToUpdate)
         {
             long userId = long.Parse(HttpContext.Items["UserId"].ToString());
-            itemToUpdate.CreatedBy = userId;
-            if (null == itemToUpdate || string.IsNullOrWhiteSpace(itemToUpdate.Notes))
+            listToUpdate.CreatedBy = userId;
+            if (null == listToUpdate || string.IsNullOrEmpty(listToUpdate.Description))
             {
                 return BadRequest(new RequestResponse<string>
                 {
@@ -186,52 +190,53 @@ namespace Adform_ToDo.API.Controllers.v1
                     Message = "Please enter correct values. Description should not be empty."
                 });
             }
-            UpdateToDoItemDto itemToUpdateDto = _mapper.Map<UpdateToDoItemDto>(itemToUpdate);
-            ToDoItemDto updatedToDoItem = await _toDoItemManager.UpdateToDoItem(itemToUpdateDto);
-            ToDoItemModel updatedToDoItemModel = _mapper.Map<ToDoItemModel>(updatedToDoItem);
-            if (updatedToDoItem != null)
+
+            UpdateToDoListDto listToUpdateDto = _mapper.Map<UpdateToDoListDto>(listToUpdate);
+            ToDoListDto updatedToDoListDto = await _toDoListManager.UpdateToDoList(listToUpdateDto);
+            ToDoListModel updatedToDoList = _mapper.Map<ToDoListModel>(updatedToDoListDto);
+
+            if (updatedToDoList != null)
             {
                 return Ok(
-                    new RequestResponse<ToDoItemModel>
+                    new RequestResponse<ToDoListModel>
                     {
                         IsSuccess = true,
-                        Result = updatedToDoItemModel,
-                        Message = "ToDoItem with Id = " + updatedToDoItemModel.ToDoItemId + " is updated on " + updatedToDoItemModel.UpdationDate + " by UserId = " + userId + "."
+                        Result = updatedToDoList,
+                        Message = "ToDoList with Id = " + updatedToDoList.ToDoListId + " is updated on " + updatedToDoList.UpdationDate + " by UserId = " + userId + "."
                     });
             }
             return NotFound(
                 new RequestResponse<object>
                 {
                     IsSuccess = false,
-                    Result = "Failed to update.",
-                    Message = "No data exist for Id = " + itemToUpdate.ToDoItemId
+                    Result = "Item to be updated not found.",
+                    Message = "No data exist for ToDoListId = " + listToUpdate.ToDoListId
                 });
         }
-
         /// <summary>
-        /// Delete specific todoItem record.
+        /// Delete specific todolist record.
         /// </summary>
         /// <param name="id"></param>
         /// <returns>Returns Action result type based on Success/Failure.</returns>
-        /// <response code="200"> Deletes specific todoitem reecord.</response>
+        /// <response code="200"> Deletes specific todolist record.</response>
         /// <response code="404"> A record with the specified todolist ID was not found.</response>
         /// <response code="401"> Authorization information is missing or invalid.</response>
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(RequestResponse<string>),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(RequestResponse<string>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteToDoItem(long id)
+        public async Task<IActionResult> DeleteToDoList(long id)
         {
             long userId = long.Parse(HttpContext.Items["UserId"].ToString());
-            int deletedToDoItem = await _toDoItemManager.DeleteToDoItem(id, userId);
-            if (deletedToDoItem == 1)
+            int deletedItem = await _toDoListManager.DeleteToDoList(id, userId);
+            if (deletedItem == 1)
             {
                 return Ok(
                     new RequestResponse<string>
                     {
                         IsSuccess = true,
                         Result = "Deleted",
-                        Message = "ToDoItem with ID = " + id + "is deleted by UserId = " + userId + "."
+                        Message = "ToDoList with ID = " + id + "is deleted by UserId = " + userId + "."
                     });
             }
             return NotFound(
@@ -244,111 +249,112 @@ namespace Adform_ToDo.API.Controllers.v1
         }
 
         /// <summary>
-        /// Partial update todoitem record with JsonPatch document.
+        /// Partial update specific todolist record with JsonPatch document.
         /// </summary>
-        /// <param name="toDoItemId"></param>
-        /// <param name="itemToUpdatePatchDoc"></param>
+        /// <param name="toDoListId"></param>
+        /// <param name="listToUpdatePatchDoc">Partial updated data.</param>
         /// <returns>Returns Action result type based on Success/Failure.</returns>
-        /// <response code="200"> Updates specific todoitem record with details provided.</response>
+        /// <response code="200"> Updates specific todolist record with details provided.</response>
         /// <response code="404"> A record with the specified todolist ID was not found.</response>
         /// <response code="401"> Authorization information is missing or invalid.</response>
-        /// <response code="400"> The provided todoitem id should be positive integer.</response>
+        /// <response code="400"> The provided todolistid should be positive integer.</response>
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(RequestResponse<ToDoItemModel>),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(RequestResponse<ToDoListModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [SwaggerRequestExample(typeof(Operation), typeof(JsonPatchPersonRequestExample))]
         [HttpPatch]
-        public async Task<IActionResult> Patch(long toDoItemId, [FromBody]JsonPatchDocument<UpdateToDoItemModel> itemToUpdatePatchDoc)
+        public async Task<IActionResult> PatchToDoList(long toDoListId, [FromBody]JsonPatchDocument<UpdateToDoListModel> listToUpdatePatchDoc)
         {
-            long userId = long.Parse(HttpContext.Items["UserId"].ToString());           
-            if (itemToUpdatePatchDoc == null)
+            long userId = long.Parse(HttpContext.Items["UserId"].ToString());
+            if (listToUpdatePatchDoc == null)
             {
                 return BadRequest(
                     new RequestResponse<string>
                     {
                         IsSuccess = false,
                         Result = "Bad Request.",
-                        Message = "Please try again withh correct input."
+                        Message = "Please try again with correct input."
                     });
             }
-            ToDoItemDto existingToDoItemDto = await _toDoItemManager.GetToDoItemById(toDoItemId, userId);
-            if (existingToDoItemDto == null)
+            ToDoListDto existingToDoListDto = await _toDoListManager.GetToDoListById(toDoListId, userId);
+            if (existingToDoListDto == null)
             {
                 return NotFound(
                     new RequestResponse<string>
                     {
                         IsSuccess = false,
                         Result = "No existing record found for provided input.",
-                        Message = "No data exist for Id = " + toDoItemId
+                        Message = "No data exist for Id = " + toDoListId
                     });
             }
-            JsonPatchDocument<UpdateToDoItemDto> patchToItemDto = _mapper.Map<JsonPatchDocument<UpdateToDoItemDto>>(itemToUpdatePatchDoc);
-            UpdateToDoItemDto itemToUpdateDto = _mapper.Map<UpdateToDoItemDto>(existingToDoItemDto);
-            patchToItemDto.ApplyTo(itemToUpdateDto);
-            bool isValid = TryValidateModel(itemToUpdateDto);
+            JsonPatchDocument<UpdateToDoListDto> PatchToListDto = _mapper.Map<JsonPatchDocument<UpdateToDoListDto>>(listToUpdatePatchDoc);
+            UpdateToDoListDto listToUpdateDto = _mapper.Map<UpdateToDoListDto>(existingToDoListDto);
+            PatchToListDto.ApplyTo(listToUpdateDto);
+            bool isValid = TryValidateModel(listToUpdateDto);
             if (!isValid)
             {
                 return BadRequest(ModelState);
             }
-            ToDoItemDto updatedToDoItemDto = await _toDoItemManager.UpdateToDoItem(itemToUpdateDto);
+            ToDoListDto updatedToDoListDto = await _toDoListManager.UpdateToDoList(listToUpdateDto);
 
-            ToDoItemModel updatedToDoItem = _mapper.Map<ToDoItemModel>(updatedToDoItemDto);              //Dto to Model
-            if (updatedToDoItem == null)
+            ToDoListModel updatedToDoList = _mapper.Map<ToDoListModel>(updatedToDoListDto);        // Dto to Model
+            if (updatedToDoList == null)
             {
                 return NotFound(
                     new RequestResponse<string>
                     {
                         IsSuccess = false,
                         Result = "No existing record found for provided input.",
-                        Message = "No data exist for Id = " + itemToUpdateDto.ToDoItemId
+                        Message = "No data exist for Id = " + listToUpdateDto.ToDoListId
                     });
             }
             else
             {
                 return Ok(
-                     new RequestResponse<ToDoItemModel>
-                     {
-                         IsSuccess = true,
-                         Result = updatedToDoItem,
-                         Message = "ToDoItem with Id = " + updatedToDoItem.ToDoItemId + " is updated on " + updatedToDoItem.UpdationDate + " by UserId = " + userId + "."
-                     });
+                    new RequestResponse<ToDoListModel>
+                    {
+                        IsSuccess = true,
+                        Result = updatedToDoList,
+                        Message = "ToDoList record with id =" + updatedToDoList.ToDoListId + " is updated on " + updatedToDoList.UpdationDate + " by UserId = " + userId
+                    });
             }
         }
 
         /// <summary>
-        /// Assign label/s to todoitem record.
+        /// Assign label/s to todolist record.
         /// </summary>
-        /// <param name="assignLabelToItemModel"></param>
+        /// <param name="id"></param>
+        /// <param name="assignLabelModel"></param>
         /// <returns>Ok if successful else not found.</returns>
-        /// <response code="200"> Assigns specified label/s to todoitem record.</response>
+        /// <response code="200"> Assigns specified label/s to todolist record.</response>
         /// <response code="404"> Error: 404 not found.</response>
         /// <response code="401"> Authorization information is missing or invalid.</response>
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(RequestResponse<string>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpPut("AssignLabelToItem")]
-        public async Task<IActionResult> AssignLabelToItem(AssignLabelToItemModel assignLabelToItemModel)
+        [HttpPut("{id}/Label")]
+        public async Task<IActionResult> AssignLabelToList(int id, AssignLabelModel assignLabelModel)
         {
-            long userId = long.Parse(HttpContext.Items["UserId"].ToString());
-            assignLabelToItemModel.CreatedBy = userId;
-
-            AssignLabelToItemDto assignLabelToItemDto = _mapper.Map<AssignLabelToItemDto>(assignLabelToItemModel);
-            bool isAssigned = await _toDoItemManager.AssignLabelToItem(assignLabelToItemDto);
+            AssignLabelToListModel model = new AssignLabelToListModel { ToDoListId = id, LabelId = assignLabelModel.LabelId, CreatedBy = long.Parse(HttpContext.Items["UserId"].ToString()) };
+            AssignLabelToListDto assignLabelToListDto = _mapper.Map<AssignLabelToListDto>(model);
+            bool isAssigned = await _toDoListManager.AssignLabelToList(assignLabelToListDto);
             if (isAssigned)
             {
                 return Ok(
                     new RequestResponse<string>
                     {
                         IsSuccess = true,
-                        Result = "Label assignment to ToDoItem successful"
+                        Result = "Label assignment to ToDoList successful"
                     });
             }
             return NotFound(
                 new RequestResponse<string>
                 {
                     IsSuccess = false,
-                    Result = "Label assignment to ToDoItem failed"
+                    Result = "Label Assignment to ToDoList Failed"
                 });
         }
+
     }
 }

@@ -12,7 +12,7 @@ namespace Adform_ToDo.Tests.ControllersTests
     /// </summary>
     public class ToDoListControllerTests : BaseController
     {
-        private ToDoListController controller;
+        private ToDoListsController controller;
 
         /// <summary>
         /// Setup.
@@ -20,7 +20,7 @@ namespace Adform_ToDo.Tests.ControllersTests
         [SetUp]
         public void Setup()
         {
-            controller = new ToDoListController(ToDoListManager.Object, Mapper)
+            controller = new ToDoListsController(ToDoListManager.Object, Mapper)
             {
                 ControllerContext = Context
             };
@@ -34,7 +34,7 @@ namespace Adform_ToDo.Tests.ControllersTests
         public async Task AddListTest()
         {
             IActionResult result = await controller.CreateToDoList(new CreateToDoListModel { Description = "test" }, Version);
-            CreatedAtActionResult response = result as CreatedAtActionResult;
+            ObjectResult response = result as ObjectResult;
             Assert.AreEqual(StatusCodes.Status201Created, (int)response.StatusCode);
         }
 
@@ -46,7 +46,7 @@ namespace Adform_ToDo.Tests.ControllersTests
         public async Task UpdateListTest()
         {
             IActionResult result = await controller.PutToDoList(new UpdateToDoListModel { ToDoListId = 1, Description = "test" });
-            OkObjectResult response = result as OkObjectResult;
+            ObjectResult response = result as ObjectResult;
             Assert.AreEqual(StatusCodes.Status200OK, (int)response.StatusCode);
         }
 
@@ -58,7 +58,7 @@ namespace Adform_ToDo.Tests.ControllersTests
         public async Task DeleteListTest()
         {
             IActionResult result = await controller.DeleteToDoList(1);
-            OkObjectResult response = result as OkObjectResult;
+            ObjectResult response = result as ObjectResult;
             Assert.AreEqual(StatusCodes.Status200OK, (int)response.StatusCode);
         }
 
@@ -70,7 +70,7 @@ namespace Adform_ToDo.Tests.ControllersTests
         public async Task GetListTest()
         {
             IActionResult result = await controller.GetToDoListById(1);
-            OkObjectResult response = result as OkObjectResult;
+            ObjectResult response = result as ObjectResult;
             Assert.AreEqual(StatusCodes.Status200OK, (int)response.StatusCode);
         }
     }

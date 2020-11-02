@@ -10,7 +10,7 @@ namespace Adform_ToDo.Tests.ServiceTests
     /// <summary>
     /// User service tests.
     /// </summary>
-    public class UserServiceTests
+    public class UserManagerTest
     {
         private Mock<IUserDal> _userDalLayer;
         private IUserManager _userService;

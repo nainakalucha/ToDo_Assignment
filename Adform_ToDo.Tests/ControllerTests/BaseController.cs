@@ -18,9 +18,9 @@ namespace Adform_ToDo.Tests.ControllersTests
         public ControllerContext Context { get; }
         public ApiVersion Version { get; }
 
-        public Mock<ILogger<LabelController>> LabelLogger { get; }
-        public Mock<ILogger<ToDoItemController>> ToDoItemLogger { get; }
-        public Mock<ILogger<ToDoListController>> ToDoListLogger { get; }
+        public Mock<ILogger<LabelsController>> LabelLogger { get; }
+        public Mock<ILogger<ToDoItemsController>> ToDoItemLogger { get; }
+        public Mock<ILogger<ToDoListsController>> ToDoListLogger { get; }
         public Mock<ILogger<UserController>> UserLogger { get; }
 
         public Mock<ILabelManager> LabelManager { get; }
@@ -44,9 +44,9 @@ namespace Adform_ToDo.Tests.ControllersTests
             ToDoItemManager = new Mock<IToDoItemManager>();
             ToDoListManager = new Mock<IToDoListManager>();
             UserManager = new Mock<IUserManager>();
-            LabelLogger = new Mock<ILogger<LabelController>>();
-            ToDoItemLogger = new Mock<ILogger<ToDoItemController>>();
-            ToDoListLogger = new Mock<ILogger<ToDoListController>>();
+            LabelLogger = new Mock<ILogger<LabelsController>>();
+            ToDoItemLogger = new Mock<ILogger<ToDoItemsController>>();
+            ToDoListLogger = new Mock<ILogger<ToDoListsController>>();
             UserLogger = new Mock<ILogger<UserController>>();
 
             Context.HttpContext.Items["UserId"] = 1;

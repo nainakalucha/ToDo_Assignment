@@ -9,11 +9,19 @@ using System.Threading.Tasks;
 
 namespace Adform_ToDo.API.Middlewares
 {
+    /// <summary>
+    /// ContentLocationMiddleware
+    /// </summary>
     public class ContentLocationMiddleware
     {
 
         private readonly RequestDelegate _next;
 
+        /// <summary>
+        /// ContentLocationMiddleware
+        /// </summary>
+        /// <param name="next"></param>
+        /// <param name="loggerFactory"></param>
         public ContentLocationMiddleware(RequestDelegate next, ILoggerFactory loggerFactory)
         {
             loggerFactory.CreateLogger<ContentLocationMiddleware>();

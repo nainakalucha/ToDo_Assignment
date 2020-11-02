@@ -11,6 +11,11 @@ namespace Adform_ToDo.API.Services
     /// </summary>
     public static class CorrelationIdServiceExtension
     {
+        /// <summary>
+        /// AddCorrelationIdHandlerAndDefaults
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
         public static IServiceCollection AddCorrelationIdHandlerAndDefaults(this IServiceCollection services)
         {
             services.AddTransient<CorrelationIdDelegatingHandler>();

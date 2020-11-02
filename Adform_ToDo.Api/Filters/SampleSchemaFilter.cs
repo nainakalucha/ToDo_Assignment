@@ -5,8 +5,16 @@ using System;
 
 namespace Adform_ToDo.Filters
 {
+    /// <summary>
+    /// SampleSchemaFilter Class
+    /// </summary>
     public class SampleSchemaFilter : ISchemaFilter
     {
+        /// <summary>
+        /// Apply
+        /// </summary>
+        /// <param name="schema"></param>
+        /// <param name="context"></param>
         public void Apply(OpenApiSchema schema, SchemaFilterContext context)
         {
             schema.Example = SetSample(context.Type);
@@ -16,6 +24,12 @@ namespace Adform_ToDo.Filters
         {
             return type.Name switch
             {
+                "JsonPatchDocument" => new OpenApiObject
+                {
+                    ["Op"] = new OpenApiString("Review"),
+                    ["Path"] = new OpenApiString("/firstname"),
+                    ["Value"] = new OpenApiString("Shayna")
+                },
                 "CreateLabelModel" => new OpenApiObject
                 {
                     ["Description"] = new OpenApiString("Review")
@@ -33,6 +47,10 @@ namespace Adform_ToDo.Filters
                 {
                     ["LabelId"] = new OpenApiArray(),
                     ["ToDoItemId"] = new OpenApiLong(3)
+                },
+                "AssignLabelModel" => new OpenApiObject
+                {
+                    ["LabelId"] = new OpenApiArray()
                 },
                 "CreateToDoItemModel" => new OpenApiObject
                 {

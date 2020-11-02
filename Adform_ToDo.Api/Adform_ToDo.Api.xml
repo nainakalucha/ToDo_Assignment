@@ -9,6 +9,15 @@
             User controller.
             </summary>
         </member>
+        <member name="M:Adform_ToDo.Controllers.UserController.#ctor(Microsoft.Extensions.Logging.ILogger{Adform_ToDo.Controllers.UserController},Adform_Todo.Common.Contracts.IUserManager,Microsoft.Extensions.Options.IOptions{Adform_Todo.Common.Models.AppSettings},AutoMapper.IMapper)">
+            <summary>
+            UserController Constructor
+            </summary>
+            <param name="logger"></param>
+            <param name="userService"></param>
+            <param name="appSettings"></param>
+            <param name="mapper"></param>
+        </member>
         <member name="M:Adform_ToDo.Controllers.UserController.Login(Adform_Todo.Common.Models.LoginModel)">
             <summary>
             Takes UserName and Password and generates token on successful authentication. 
@@ -23,12 +32,19 @@
             <param name="createUserModel"></param>
             <returns>Api Response based on success/failure.</returns>
         </member>
-        <member name="T:Adform_ToDo.API.Controllers.v1.LabelController">
+        <member name="T:Adform_ToDo.API.Controllers.v1.LabelsController">
             <summary>
             Labels controller.
             </summary>
         </member>
-        <member name="M:Adform_ToDo.API.Controllers.v1.LabelController.GetAllLabels(Adform_Todo.Common.Models.PaginationParameters)">
+        <member name="M:Adform_ToDo.API.Controllers.v1.LabelsController.#ctor(Adform_Todo.Common.Contracts.ILabelManager,AutoMapper.IMapper)">
+            <summary>
+            LabelsController Constructor
+            </summary>
+            <param name="labelManager"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:Adform_ToDo.API.Controllers.v1.LabelsController.GetAllLabels(Adform_Todo.Common.Models.PaginationParameters)">
             <summary>
             Get all label records.
             </summary>
@@ -38,7 +54,7 @@
             <response code="404"> Error: 404 not found </response>
             <response code="401"> Authorization information is missing or invalid.</response>
         </member>
-        <member name="M:Adform_ToDo.API.Controllers.v1.LabelController.GetLabelById(System.Int64)">
+        <member name="M:Adform_ToDo.API.Controllers.v1.LabelsController.GetLabelById(System.Int64)">
             <summary>
             Get label record based on ID.
             </summary> 
@@ -48,7 +64,7 @@
             <response code="404"> A label with the specified label ID was not found.</response>
             <response code="401"> Authorization information is missing or invalid.</response>
         </member>
-        <member name="M:Adform_ToDo.API.Controllers.v1.LabelController.CreateLabel(Adform_Todo.Common.Models.CreateLabelModel,Microsoft.AspNetCore.Mvc.ApiVersion)">
+        <member name="M:Adform_ToDo.API.Controllers.v1.LabelsController.CreateLabel(Adform_Todo.Common.Models.CreateLabelModel,Microsoft.AspNetCore.Mvc.ApiVersion)">
             <summary>
             Create Label record.
             </summary>
@@ -59,7 +75,7 @@
             <response code="400"> Invalid request format.</response>
             <response code="401"> Authorization information is missing or invalid.</response>
         </member>
-        <member name="M:Adform_ToDo.API.Controllers.v1.LabelController.DeleteLabel(System.Int64)">
+        <member name="M:Adform_ToDo.API.Controllers.v1.LabelsController.DeleteLabel(System.Int64)">
             <summary>
             Delete specific label record.
             </summary>
@@ -69,12 +85,19 @@
             <response code="404"> A label with the specified label ID was not found.</response>
             <response code="401"> Authorization information is missing or invalid.</response>
         </member>
-        <member name="T:Adform_ToDo.API.Controllers.v1.ToDoItemController">
+        <member name="T:Adform_ToDo.API.Controllers.v1.ToDoItemsController">
             <summary>
             TodoItems controller.
             </summary>
         </member>
-        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoItemController.GetAllToDoItems(Adform_Todo.Common.Models.PaginationParameters)">
+        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoItemsController.#ctor(Adform_Todo.Common.Contracts.IToDoItemManager,AutoMapper.IMapper)">
+            <summary>
+            ToDoItemsController Constructor
+            </summary>
+            <param name="toDoItemMgr"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoItemsController.GetAllToDoItems(Adform_Todo.Common.Models.PaginationParameters)">
             <summary>
             Get all todoitem records.
             </summary>
@@ -84,7 +107,7 @@
             <response code="404"> A record with the specified todolist ID was not found.</response>
             <response code="401"> Authorization information is missing or invalid.</response>
         </member>
-        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoItemController.GetToDoItemById(System.Int64)">
+        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoItemsController.GetToDoItemById(System.Int64)">
             <summary>
             Get todoitem based on ID.
             </summary> 
@@ -94,7 +117,7 @@
             <response code="404"> Error: 404 not found.</response>
             <response code="401"> Authorization information is missing or invalid.</response>
         </member>
-        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoItemController.CreateToDoItem(Adform_Todo.Common.Models.CreateToDoItemModel,Microsoft.AspNetCore.Mvc.ApiVersion)">
+        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoItemsController.CreateToDoItem(Adform_Todo.Common.Models.CreateToDoItemModel,Microsoft.AspNetCore.Mvc.ApiVersion)">
             <summary>
             Create todoitem record.
             </summary>
@@ -105,7 +128,7 @@
             <response code="401"> Authorization information is missing or invalid.</response>
             <response code="400"> The provided todoitem id should be positive integer.</response>
         </member>
-        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoItemController.PutToDoItem(Adform_Todo.Common.Models.UpdateToDoItemModel)">
+        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoItemsController.PutToDoItem(Adform_Todo.Common.Models.UpdateToDoItemModel)">
             <summary>
             Update specific todoitem record.
             </summary>
@@ -116,7 +139,7 @@
             <response code="401"> Authorization information is missing or invalid.</response>
             <response code="400"> The provided todoitem id should be positive integer.</response>
         </member>
-        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoItemController.DeleteToDoItem(System.Int64)">
+        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoItemsController.DeleteToDoItem(System.Int64)">
             <summary>
             Delete specific todoItem record.
             </summary>
@@ -126,7 +149,7 @@
             <response code="404"> A record with the specified todolist ID was not found.</response>
             <response code="401"> Authorization information is missing or invalid.</response>
         </member>
-        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoItemController.Patch(System.Int64,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{Adform_Todo.Common.Models.UpdateToDoItemModel})">
+        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoItemsController.Patch(System.Int64,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{Adform_Todo.Common.Models.UpdateToDoItemModel})">
             <summary>
             Partial update todoitem record with JsonPatch document.
             </summary>
@@ -138,22 +161,30 @@
             <response code="401"> Authorization information is missing or invalid.</response>
             <response code="400"> The provided todoitem id should be positive integer.</response>
         </member>
-        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoItemController.AssignLabelToItem(Adform_Todo.Common.Models.AssignLabelToItemModel)">
+        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoItemsController.AssignLabelToItem(System.Int32,Adform_Todo.Common.Models.AssignLabelModel)">
             <summary>
             Assign label/s to todoitem record.
             </summary>
+            <param name="id"></param>
             <param name="assignLabelToItemModel"></param>
             <returns>Ok if successful else not found.</returns>
             <response code="200"> Assigns specified label/s to todoitem record.</response>
             <response code="404"> Error: 404 not found.</response>
             <response code="401"> Authorization information is missing or invalid.</response>
         </member>
-        <member name="T:Adform_ToDo.API.Controllers.v1.ToDoListController">
+        <member name="T:Adform_ToDo.API.Controllers.v1.ToDoListsController">
             <summary>
             Todolists controller.
             </summary>
         </member>
-        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoListController.GetAllToDoLists(Adform_Todo.Common.Models.PaginationParameters)">
+        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoListsController.#ctor(Adform_Todo.Common.Contracts.IToDoListManager,AutoMapper.IMapper)">
+            <summary>
+            ToDoListsController Constructor
+            </summary>
+            <param name="toDoListMgr"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoListsController.GetAllToDoLists(Adform_Todo.Common.Models.PaginationParameters)">
             <summary>
             Get all todolist records.
             </summary>
@@ -163,7 +194,7 @@
             <response code="404"> A record with the specified todolist ID was not found.</response>
             <response code="401"> Authorization information is missing or invalid.</response>
         </member>
-        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoListController.GetToDoListById(System.Int64)">
+        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoListsController.GetToDoListById(System.Int64)">
             <summary>
             Get todolist record based on ID.
             </summary> 
@@ -173,7 +204,7 @@
             <response code="404"> A record with the specified todolist ID was not found.</response>
             <response code="401"> Authorization information is missing or invalid.</response>
         </member>
-        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoListController.CreateToDoList(Adform_Todo.Common.Models.CreateToDoListModel,Microsoft.AspNetCore.Mvc.ApiVersion)">
+        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoListsController.CreateToDoList(Adform_Todo.Common.Models.CreateToDoListModel,Microsoft.AspNetCore.Mvc.ApiVersion)">
             <summary>
             Create todolist record.
             </summary>
@@ -184,7 +215,7 @@
             <response code="401"> Authorization information is missing or invalid.</response>
             <response code="400"> The provided todolistid should be positive integer.</response>
         </member>
-        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoListController.PutToDoList(Adform_Todo.Common.Models.UpdateToDoListModel)">
+        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoListsController.PutToDoList(Adform_Todo.Common.Models.UpdateToDoListModel)">
             <summary>
             Update specific todolist record.
             </summary>
@@ -195,7 +226,7 @@
             <response code="401"> Authorization information is missing or invalid.</response>
             <response code="400"> The provided todolistid should be positive integer.</response>
         </member>
-        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoListController.DeleteToDoList(System.Int64)">
+        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoListsController.DeleteToDoList(System.Int64)">
             <summary>
             Delete specific todolist record.
             </summary>
@@ -205,7 +236,7 @@
             <response code="404"> A record with the specified todolist ID was not found.</response>
             <response code="401"> Authorization information is missing or invalid.</response>
         </member>
-        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoListController.PatchToDoList(System.Int64,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{Adform_Todo.Common.Models.UpdateToDoListModel})">
+        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoListsController.PatchToDoList(System.Int64,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{Adform_Todo.Common.Models.UpdateToDoListModel})">
             <summary>
             Partial update specific todolist record with JsonPatch document.
             </summary>
@@ -217,11 +248,12 @@
             <response code="401"> Authorization information is missing or invalid.</response>
             <response code="400"> The provided todolistid should be positive integer.</response>
         </member>
-        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoListController.AssignLabelToList(Adform_Todo.Common.Models.AssignLabelToListModel)">
+        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoListsController.AssignLabelToList(System.Int32,Adform_Todo.Common.Models.AssignLabelModel)">
             <summary>
             Assign label/s to todolist record.
             </summary>
-            <param name="assignLabelToListModel"></param>
+            <param name="id"></param>
+            <param name="assignLabelModel"></param>
             <returns>Ok if successful else not found.</returns>
             <response code="200"> Assigns specified label/s to todolist record.</response>
             <response code="404"> Error: 404 not found.</response>
@@ -231,6 +263,17 @@
             <summary>
             LabelMutation class for GraphQl.
             </summary>
+        </member>
+        <member name="M:Adform_ToDo.API.GraphQl.Mutations.Mutation.#ctor(Adform_Todo.Common.Contracts.ILabelDal,Adform_Todo.Common.Contracts.IToDoItemDal,Adform_Todo.Common.Contracts.IToDoListDal,Adform_Todo.Common.Contracts.IUserDal,Microsoft.AspNetCore.Http.IHttpContextAccessor,Microsoft.Extensions.Options.IOptions{Adform_Todo.Common.Models.AppSettings})">
+            <summary>
+            Mutation Constructor
+            </summary>
+            <param name="labelDal"></param>
+            <param name="toDoItemDal"></param>
+            <param name="toDoListDal"></param>
+            <param name="userDal"></param>
+            <param name="httpContextAccessor"></param>
+            <param name="appSettings"></param>
         </member>
         <member name="M:Adform_ToDo.API.GraphQl.Mutations.Mutation.AddLabel(Adform_Todo.Common.Dtos.CreateLabelDto)">
             <summary>
@@ -308,6 +351,16 @@
             Query class for GraphQl.
             </summary>
         </member>
+        <member name="M:Adform_ToDo.API.GraphQl.Query.#ctor(Adform_Todo.Common.Contracts.ILabelDal,Adform_Todo.Common.Contracts.IToDoItemDal,Adform_Todo.Common.Contracts.IToDoListDal,Adform_Todo.Common.Contracts.IUserDal,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            Query Constructor
+            </summary>
+            <param name="labelDal"></param>
+            <param name="toDoItemDal"></param>
+            <param name="toDoListDal"></param>
+            <param name="userDal"></param>
+            <param name="httpContextAccessor"></param>
+        </member>
         <member name="M:Adform_ToDo.API.GraphQl.Query.GetAllLabels">
             <summary>
             Get labels.
@@ -350,6 +403,18 @@
             </summary>
             <returns>Returns user details.</returns>
         </member>
+        <member name="T:Adform_ToDo.API.Middlewares.ContentLocationMiddleware">
+            <summary>
+            ContentLocationMiddleware
+            </summary>
+        </member>
+        <member name="M:Adform_ToDo.API.Middlewares.ContentLocationMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            ContentLocationMiddleware
+            </summary>
+            <param name="next"></param>
+            <param name="loggerFactory"></param>
+        </member>
         <member name="M:Adform_ToDo.API.Middlewares.ContentLocationMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext)">
             <summary>
             Process request.
@@ -371,6 +436,14 @@
             <summary>
             Exception Middleware.
             </summary>
+        </member>
+        <member name="M:Adform_ToDo.API.Middlewares.ExceptionMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.Extensions.Logging.ILoggerFactory,CorrelationId.Abstractions.ICorrelationContextAccessor)">
+            <summary>
+            ExceptionMiddleware
+            </summary>
+            <param name="next"></param>
+            <param name="loggerFactory"></param>
+            <param name="correlationContextAccessor"></param>
         </member>
         <member name="M:Adform_ToDo.API.Middlewares.ExceptionMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext)">
             <summary>
@@ -434,14 +507,41 @@
             Extension for IService collection for adding CorrelationId Handler and setting defaults.
             </summary>
         </member>
+        <member name="M:Adform_ToDo.API.Services.CorrelationIdServiceExtension.AddCorrelationIdHandlerAndDefaults(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            AddCorrelationIdHandlerAndDefaults
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
         <member name="T:Adform_ToDo.API.Services.GraphQLServiceExtension">
             <summary>
             Extensionn method for configure IService Collection for adding GraphQl services.
             </summary>
         </member>
+        <member name="M:Adform_ToDo.API.Services.GraphQLServiceExtension.AddGraphQLServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            AddGraphQLServices
+            </summary>
+            <param name="service"></param>
+            <returns></returns>
+        </member>
         <member name="T:Adform_ToDo.API.Services.JwtAuthenticationServiceExtension">
             <summary>
             Implements extension method for adding jwtauthentication service.
+            </summary>
+        </member>
+        <member name="M:Adform_ToDo.API.Services.JwtAuthenticationServiceExtension.AddJwtAuthentication(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            AddJwtAuthentication
+            </summary>
+            <param name="services"></param>
+            <param name="configuration"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Adform_ToDo.API.Services.SwaggerServiceExtension">
+            <summary>
+            SwaggerServiceExtension
             </summary>
         </member>
         <member name="M:Adform_ToDo.API.Services.SwaggerServiceExtension.AddSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
@@ -455,10 +555,59 @@
             Add CorrelationId header parameters.
             </summary>
         </member>
+        <member name="M:Adform_ToDo.Filters.CorrelationIdOperationFilter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <summary>
+            Apply
+            </summary>
+            <param name="operation"></param>
+            <param name="context"></param>
+        </member>
+        <member name="T:Adform_ToDo.Filters.SampleSchemaFilter">
+            <summary>
+            SampleSchemaFilter Class
+            </summary>
+        </member>
+        <member name="M:Adform_ToDo.Filters.SampleSchemaFilter.Apply(Microsoft.OpenApi.Models.OpenApiSchema,Swashbuckle.AspNetCore.SwaggerGen.SchemaFilterContext)">
+            <summary>
+            Apply
+            </summary>
+            <param name="schema"></param>
+            <param name="context"></param>
+        </member>
+        <member name="T:Adform_ToDo.Api.Filters.RemoveVersionParameterFilter">
+            <summary>
+            RemoveVersionParameterFilter
+            </summary>
+        </member>
+        <member name="M:Adform_ToDo.Api.Filters.RemoveVersionParameterFilter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <summary>
+            Apply
+            </summary>
+            <param name="operation"></param>
+            <param name="context"></param>
+        </member>
+        <member name="T:Adform_ToDo.Api.Filters.ReplaceVersionWithExactValueInPathFilter">
+            <summary>
+            ReplaceVersionWithExactValueInPathFilter
+            </summary>
+        </member>
+        <member name="M:Adform_ToDo.Api.Filters.ReplaceVersionWithExactValueInPathFilter.Apply(Microsoft.OpenApi.Models.OpenApiDocument,Swashbuckle.AspNetCore.SwaggerGen.DocumentFilterContext)">
+            <summary>
+            Apply
+            </summary>
+            <param name="swaggerDoc"></param>
+            <param name="context"></param>
+        </member>
         <member name="T:Adform_ToDo.Handlers.CorrelationIdDelegatingHandler">
             <summary>
             Implements method for forwarding CorrelationID in HttpRequestheader.
             </summary>
+        </member>
+        <member name="M:Adform_ToDo.Handlers.CorrelationIdDelegatingHandler.#ctor(Microsoft.Extensions.Logging.ILogger{Adform_ToDo.Handlers.CorrelationIdDelegatingHandler})">
+            <summary>
+            CorrelationIdDelegatingHandler
+            </summary>
+            <param name="logger"></param>
         </member>
         <member name="M:Adform_ToDo.Handlers.CorrelationIdDelegatingHandler.SendAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
             <summary>
@@ -487,6 +636,77 @@
             <param name="context">Http context.</param>
             <param name="userService">User service.</param>
             <returns>Returns nothing.</returns>
+        </member>
+        <member name="T:Adform_ToDo.Middlewares.JwtMiddlewareExtension">
+            <summary>
+            JwtMiddlewareExtension
+            </summary>
+        </member>
+        <member name="M:Adform_ToDo.Middlewares.JwtMiddlewareExtension.UseJwtMiddleware(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            UseJwtMiddleware
+            </summary>
+            <param name="builder"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Adform_ToDo.Program">
+            <summary>
+            Program
+            </summary>
+        </member>
+        <member name="M:Adform_ToDo.Program.Main(System.String[])">
+            <summary>
+            Main
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:Adform_ToDo.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            CreateHostBuilder
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Adform_ToDo.Startup">
+            <summary>
+            Startup Class
+            </summary>
+        </member>
+        <member name="M:Adform_ToDo.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Startup
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="P:Adform_ToDo.Startup.Configuration">
+            <summary>
+            Configuration
+            </summary>
+        </member>
+        <member name="M:Adform_ToDo.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            ConfigureServices
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:Adform_ToDo.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            Configure
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+            <param name="loggerFactory"></param>
+        </member>
+        <member name="T:JsonPatchPersonRequestExample">
+            <summary>
+            JsonPatchPersonRequestExample
+            </summary>
+        </member>
+        <member name="M:JsonPatchPersonRequestExample.GetExamples">
+            <summary>
+            GetExamples
+            </summary>
+            <returns></returns>
         </member>
     </members>
 </doc>

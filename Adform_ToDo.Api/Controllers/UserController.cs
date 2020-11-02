@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Adform_ToDo.Controllers
@@ -24,6 +23,13 @@ namespace Adform_ToDo.Controllers
         private readonly IUserManager _userManager;
         private readonly AppSettings _appSettings;
         private readonly IMapper _mapper;
+        /// <summary>
+        /// UserController Constructor
+        /// </summary>
+        /// <param name="logger"></param>
+        /// <param name="userService"></param>
+        /// <param name="appSettings"></param>
+        /// <param name="mapper"></param>
         public UserController(ILogger<UserController> logger, IUserManager userService, IOptions<AppSettings> appSettings, IMapper mapper)
         {
             _logger = logger;
@@ -99,7 +105,7 @@ namespace Adform_ToDo.Controllers
                     {
                         IsSuccess = false,
                         Result = "Fail.",
-                        Message = "Some error occurred. Please refresh page and try again."
+                        Message = "The User already exists. Try another one."
                     });
             }
         }

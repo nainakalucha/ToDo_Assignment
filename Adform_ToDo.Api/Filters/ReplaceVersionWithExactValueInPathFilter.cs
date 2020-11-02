@@ -3,8 +3,16 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Adform_ToDo.Api.Filters
 {
+    /// <summary>
+    /// ReplaceVersionWithExactValueInPathFilter
+    /// </summary>
     public class ReplaceVersionWithExactValueInPathFilter : IDocumentFilter
     {
+        /// <summary>
+        /// Apply
+        /// </summary>
+        /// <param name="swaggerDoc"></param>
+        /// <param name="context"></param>
         public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
         {
             var paths = new OpenApiPaths();

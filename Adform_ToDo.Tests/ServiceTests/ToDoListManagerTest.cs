@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Adform_ToDo.Tests.ServiceTests
 {
-    class ToDoListServiceTests
+    class ToDoListManagerTest
     {
         private Mock<IToDoListDal> _toDoListDbOps;
         private IToDoListManager _toDoListContract;

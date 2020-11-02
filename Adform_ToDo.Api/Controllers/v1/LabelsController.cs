@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 namespace Adform_ToDo.API.Controllers.v1
@@ -19,12 +17,17 @@ namespace Adform_ToDo.API.Controllers.v1
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    public class LabelController : ControllerBase
+    public class LabelsController : ControllerBase
     {
         private readonly ILabelManager _labelManager;
         private readonly IMapper _mapper;
 
-        public LabelController(ILabelManager labelManager, IMapper mapper)
+        /// <summary>
+        /// LabelsController Constructor
+        /// </summary>
+        /// <param name="labelManager"></param>
+        /// <param name="mapper"></param>
+        public LabelsController(ILabelManager labelManager, IMapper mapper)
         {
             _labelManager = labelManager;
             _mapper = mapper;

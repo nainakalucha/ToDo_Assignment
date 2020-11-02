@@ -10,6 +10,11 @@ namespace Adform_ToDo.API.Services
     /// </summary>
     public static class GraphQLServiceExtension
     {
+        /// <summary>
+        /// AddGraphQLServices
+        /// </summary>
+        /// <param name="service"></param>
+        /// <returns></returns>
         public static IServiceCollection AddGraphQLServices(this IServiceCollection service)
         {
             return service.AddGraphQL(s => SchemaBuilder.New()

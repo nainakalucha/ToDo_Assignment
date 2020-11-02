@@ -23,6 +23,15 @@ namespace Adform_ToDo.API.GraphQl.Mutations
         private readonly long _userId;
         private readonly AppSettings _appSettings;
 
+        /// <summary>
+        /// Mutation Constructor
+        /// </summary>
+        /// <param name="labelDal"></param>
+        /// <param name="toDoItemDal"></param>
+        /// <param name="toDoListDal"></param>
+        /// <param name="userDal"></param>
+        /// <param name="httpContextAccessor"></param>
+        /// <param name="appSettings"></param>
         public Mutation([Service]ILabelDal labelDal, [Service]IToDoItemDal toDoItemDal, [Service] IToDoListDal toDoListDal,
             [Service]IUserDal userDal, IHttpContextAccessor httpContextAccessor, IOptions<AppSettings> appSettings)
         {

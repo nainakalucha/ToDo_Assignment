@@ -11,6 +11,12 @@ namespace Adform_ToDo.API.Services
     /// </summary>
     public static class JwtAuthenticationServiceExtension
     {
+        /// <summary>
+        /// AddJwtAuthentication
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
         public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddAuthentication(options =>

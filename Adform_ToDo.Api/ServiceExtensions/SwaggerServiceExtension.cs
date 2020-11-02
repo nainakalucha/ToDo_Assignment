@@ -2,12 +2,16 @@
 using Adform_ToDo.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
 using System;
 using System.IO;
 using System.Linq;
 
 namespace Adform_ToDo.API.Services
 {
+    /// <summary>
+    /// SwaggerServiceExtension
+    /// </summary>
     public static class SwaggerServiceExtension
     {
         /// <summary>
@@ -20,6 +24,7 @@ namespace Adform_ToDo.API.Services
             {
                 p.SwaggerDoc("v1", new OpenApiInfo { Title = "Adform ToDo API", Version = "v1" });
                 p.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+                p.ExampleFilters();
 
                 p.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {

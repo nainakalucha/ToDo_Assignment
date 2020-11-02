@@ -1,7 +1,6 @@
 ﻿using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Adform_ToDo.Filters
 {
@@ -10,6 +9,11 @@ namespace Adform_ToDo.Filters
     /// </summary>
     public class CorrelationIdOperationFilter : IOperationFilter
     {
+        /// <summary>
+        /// Apply
+        /// </summary>
+        /// <param name="operation"></param>
+        /// <param name="context"></param>
         public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
             if (operation.Parameters == null)

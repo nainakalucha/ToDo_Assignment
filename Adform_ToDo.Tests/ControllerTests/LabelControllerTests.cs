@@ -12,7 +12,7 @@ namespace Adform_ToDo.Tests.ControllersTests
     /// </summary>
     public class LabelControllerTests : BaseController
     {
-        private LabelController controller;
+        private LabelsController controller;
 
         /// <summary>
         /// Setup.
@@ -20,7 +20,7 @@ namespace Adform_ToDo.Tests.ControllersTests
         [SetUp]
         public void Setup()
         {
-            controller = new LabelController(LabelManager.Object, Mapper)
+            controller = new LabelsController(LabelManager.Object, Mapper)
             {
                 ControllerContext = Context
             };
@@ -34,7 +34,7 @@ namespace Adform_ToDo.Tests.ControllersTests
         public async Task AddLabelTest()
         {
             IActionResult result = await controller.CreateLabel(new CreateLabelModel { Description = "test" }, Version);
-            CreatedAtActionResult response = result as CreatedAtActionResult;
+            ObjectResult response = result as ObjectResult;
             Assert.AreEqual(StatusCodes.Status201Created, (int)response.StatusCode);
         }
 
@@ -46,7 +46,7 @@ namespace Adform_ToDo.Tests.ControllersTests
         public async Task DeleteLabelTest()
         {
             IActionResult result = await controller.DeleteLabel(1);
-            OkObjectResult response = result as OkObjectResult;
+            ObjectResult response = result as ObjectResult;
             Assert.AreEqual(StatusCodes.Status200OK, (int)response.StatusCode);
         }
 
@@ -58,7 +58,7 @@ namespace Adform_ToDo.Tests.ControllersTests
         public async Task GetLabelByIdTest()
         {
             IActionResult result = await controller.GetLabelById(1);
-            OkObjectResult response = result as OkObjectResult;
+            ObjectResult response = result as ObjectResult;
             Assert.AreEqual(StatusCodes.Status200OK, (int)response.StatusCode);
         }
     }

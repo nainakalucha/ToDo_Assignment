@@ -72,8 +72,16 @@ namespace Adform_ToDo.Middlewares
             context.Items["UserId"] = userDto.UserId;
         }
     }
+    /// <summary>
+    /// JwtMiddlewareExtension
+    /// </summary>
     public static class JwtMiddlewareExtension
     {
+        /// <summary>
+        /// UseJwtMiddleware
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <returns></returns>
         public static IApplicationBuilder UseJwtMiddleware(this IApplicationBuilder builder)
         {
             return builder.UseMiddleware<JwtMiddleware>();

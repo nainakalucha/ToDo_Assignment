@@ -20,6 +20,14 @@ namespace Adform_ToDo.API.GraphQl
         private readonly IUserDal _userDal;
         private readonly long _userId;
 
+        /// <summary>
+        /// Query Constructor
+        /// </summary>
+        /// <param name="labelDal"></param>
+        /// <param name="toDoItemDal"></param>
+        /// <param name="toDoListDal"></param>
+        /// <param name="userDal"></param>
+        /// <param name="httpContextAccessor"></param>
         public Query([Service]ILabelDal labelDal, [Service]IToDoItemDal toDoItemDal, [Service]IToDoListDal toDoListDal,
             [Service]IUserDal userDal, IHttpContextAccessor httpContextAccessor)
         {

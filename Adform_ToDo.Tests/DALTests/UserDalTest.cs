@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Adform_ToDo.Tests.DALTests
 {
-    public class UserDbOpsTests : ToDoDbContextInitiator
+    public class UserDalTest : ToDoDbContextInitiator
     {
-        private readonly UserDal _userDbOps;
-        public UserDbOpsTests()
+        private readonly UserDal _userDal;
+        public UserDalTest()
         {
-            _userDbOps = new UserDal(DBContext, Mapper);
+            _userDal = new UserDal(DBContext, Mapper);
             DBContext.Users.Add(new UserEntity
             {
                 FirstName = "Aman",
@@ -29,7 +29,7 @@ namespace Adform_ToDo.Tests.DALTests
         [Test]
         public async Task Valid_RegisterUser()
         {
-            bool result = await _userDbOps.RegisterUser(new CreateUserDto { FirstName = "Onkar", LastName = "Singh", Password = "123", UserName = "Onkar" });
+            bool result = await _userDal.RegisterUser(new CreateUserDto { FirstName = "Onkar", LastName = "Singh", Password = "123", UserName = "Onkar" });
 
             Assert.IsTrue(result);
         }
@@ -39,7 +39,7 @@ namespace Adform_ToDo.Tests.DALTests
         [Test]
         public async Task Invalid_RegisterUser()
         {
-            bool result = await _userDbOps.RegisterUser(new CreateUserDto { FirstName = "Aman", LastName = "Singh", Password = "123", UserName = "Aman" });
+            bool result = await _userDal.RegisterUser(new CreateUserDto { FirstName = "Aman", LastName = "Singh", Password = "123", UserName = "Aman" });
 
             Assert.IsTrue(!result);
         }
@@ -49,7 +49,7 @@ namespace Adform_ToDo.Tests.DALTests
         [Test]
         public async Task AuthenticateUser()
         {
-            UserDto entity = await _userDbOps.AuthenticateUser("Aman", "123");
+            UserDto entity = await _userDal.AuthenticateUser("Aman", "123");
 
             Assert.NotNull(entity);
         }

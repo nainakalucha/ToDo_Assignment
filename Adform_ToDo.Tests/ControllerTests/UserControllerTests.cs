@@ -37,7 +37,7 @@ namespace Adform_ToDo.Tests.ControllersTests
         public async Task AuthenticateTest()
         {
             IActionResult result = await controller.Login(new LoginModel { UserName = "Sunaina  ", Password = "12345" });
-            OkObjectResult response = result as OkObjectResult;
+            ObjectResult response = result as ObjectResult;
             Assert.AreEqual(StatusCodes.Status200OK, (int)response.StatusCode);
         }
 
@@ -50,7 +50,7 @@ namespace Adform_ToDo.Tests.ControllersTests
         public async Task RegistrationTest()
         {
             IActionResult result = await controller.Register(new CreateUserModel { FirstName = "Sunaina", LastName = "Kalucha", UserName = "Sunaina", Password = "12345" });
-            OkObjectResult response = result as OkObjectResult;
+            ObjectResult response = result as ObjectResult;
             Assert.AreEqual(StatusCodes.Status200OK, (int)response.StatusCode);
         }
 

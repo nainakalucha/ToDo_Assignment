@@ -22,21 +22,35 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.Filters;
 using System.Linq;
 using System.Security.Claims;
 
 namespace Adform_ToDo
 {
+    /// <summary>
+    /// Startup Class
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// Startup
+        /// </summary>
+        /// <param name="configuration"></param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// Configuration
+        /// </summary>
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// ConfigureServices
+        /// </summary>
+        /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ToDoDbContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString(Constants.SqlConnectionString)));
@@ -63,6 +77,7 @@ namespace Adform_ToDo
             services.AddTransient<ILabelDal, LabelDal>();
             services.AddTransient<IToDoItemManager, ToDoItemManager>();
             services.AddTransient<IToDoItemDal, ToDoItemDal>();
+            services.AddSwaggerExamplesFromAssemblyOf<JsonPatchPersonRequestExample>();
 
             services.AddJwtAuthentication(Configuration);
             services.AddAuthorization(config =>
@@ -109,7 +124,12 @@ namespace Adform_ToDo
                 .First();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// Configure
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="env"></param>
+        /// <param name="loggerFactory"></param>
         public static void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddFile(Constants.LogFile, isJson: true);

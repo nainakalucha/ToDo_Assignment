@@ -12,7 +12,7 @@ namespace Adform_ToDo.Tests.ControllersTests
     /// </summary>
     public class ToDoItemControllerTests : BaseController
     {
-        private ToDoItemController controller;
+        private ToDoItemsController controller;
 
         /// <summary>
         /// Setup.
@@ -20,7 +20,7 @@ namespace Adform_ToDo.Tests.ControllersTests
         [SetUp]
         public void Setup()
         {
-            controller = new ToDoItemController(ToDoItemManager.Object, Mapper)
+            controller = new ToDoItemsController(ToDoItemManager.Object, Mapper)
             {
                 ControllerContext = Context
             };
@@ -34,7 +34,7 @@ namespace Adform_ToDo.Tests.ControllersTests
         public async Task AddItemTest()
         {
             IActionResult result = await controller.CreateToDoItem(new CreateToDoItemModel { Notes = "test", ToDoListId = 1 }, Version);
-            CreatedAtActionResult response = result as CreatedAtActionResult;
+            ObjectResult response = result as ObjectResult;
             Assert.AreEqual(StatusCodes.Status201Created, (int)response.StatusCode);
         }
 
@@ -46,7 +46,7 @@ namespace Adform_ToDo.Tests.ControllersTests
         public async Task UpdateItemTest()
         {
             IActionResult result = await controller.PutToDoItem(new UpdateToDoItemModel { ToDoItemId = 1, Notes = "test" });
-            OkObjectResult response = result as OkObjectResult;
+            ObjectResult response = result as ObjectResult;
             Assert.AreEqual(StatusCodes.Status200OK, (int)response.StatusCode);
         }
 
@@ -58,7 +58,7 @@ namespace Adform_ToDo.Tests.ControllersTests
         public async Task DeleteLabelTest()
         {
             IActionResult result = await controller.DeleteToDoItem(1);
-            OkObjectResult response = result as OkObjectResult;
+            ObjectResult response = result as ObjectResult;
             Assert.AreEqual(StatusCodes.Status200OK, (int)response.StatusCode);
         }
 
@@ -70,7 +70,7 @@ namespace Adform_ToDo.Tests.ControllersTests
         public async Task GetItemTest()
         {
             IActionResult result = await controller.GetToDoItemById(1);
-            OkObjectResult response = result as OkObjectResult;
+            ObjectResult response = result as ObjectResult;
             Assert.AreEqual(StatusCodes.Status200OK, (int)response.StatusCode);
         }
     }

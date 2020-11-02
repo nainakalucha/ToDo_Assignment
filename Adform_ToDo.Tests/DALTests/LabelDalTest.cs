@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace Adform_ToDo.Tests.DALTests
 {
-    public class LabelDbOpsTests : ToDoDbContextInitiator
+    public class LabelDalTest : ToDoDbContextInitiator
     {
-        private readonly LabelDal _labelDbOps;
-        public LabelDbOpsTests()
+        private readonly LabelDal _labelDal;
+        public LabelDalTest()
         {
-            _labelDbOps = new LabelDal(DBContext, Mapper);
+            _labelDal = new LabelDal(DBContext, Mapper);
             DBContext.Labels.Add(new LabelEntity
             {
-                Description = "something",
+                Description = "LabelTest",
                 CreatedBy = 1,
             });
             DBContext.SaveChanges();
@@ -28,10 +28,9 @@ namespace Adform_ToDo.Tests.DALTests
         [Test]
         public async Task GetLabels()
         {
-            List<LabelDto> LabelList = await _labelDbOps.GetAllLabels(1);
+            List<LabelDto> LabelList = await _labelDal.GetAllLabels(1);
             int count = LabelList.Count;
-            Assert.IsNotNull(LabelList);
-            Assert.IsTrue(count >= 1);
+            Assert.IsTrue(count > 0);
         }
 
         /// <summary>
@@ -41,9 +40,9 @@ namespace Adform_ToDo.Tests.DALTests
         [Test]
         public async Task AddLabel()
         {
-            LabelDto addedLabel = await _labelDbOps.AddLabel(new CreateLabelDto { Description = "buy phone", CreatedBy = 1 });
+            LabelDto addedLabel = await _labelDal.AddLabel(new CreateLabelDto { Description = "NewLabel", CreatedBy = 1 });
             Assert.IsNotNull(addedLabel);
-            Assert.AreEqual("buy phone", addedLabel.Description);
+            Assert.AreEqual("NewLabel", addedLabel.Description);
         }
 
         /// <summary>
@@ -52,7 +51,7 @@ namespace Adform_ToDo.Tests.DALTests
         [Test]
         public async Task DeleteLabel()
         {
-            int deleteResult = await _labelDbOps.DeleteLabel(1, 1);
+            int deleteResult = await _labelDal.DeleteLabel(1, 1);
             Assert.IsNotNull(deleteResult);
             Assert.AreEqual(1, deleteResult);
         }
