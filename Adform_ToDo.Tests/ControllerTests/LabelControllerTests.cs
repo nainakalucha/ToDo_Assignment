@@ -33,7 +33,7 @@ namespace Adform_ToDo.Tests.ControllersTests
         [Test]
         public async Task AddLabelTest()
         {
-            IActionResult result = await controller.CreateLabel(new CreateLabelModel { Description = "test" }, Version);
+            IActionResult result = await controller.CreateLabel(new CreateLabelModel { Description = "test" });
             ObjectResult response = result as ObjectResult;
             Assert.AreEqual(StatusCodes.Status201Created, (int)response.StatusCode);
         }

@@ -33,7 +33,7 @@ namespace Adform_ToDo.Tests.ControllersTests
         [Test]
         public async Task AddItemTest()
         {
-            IActionResult result = await controller.CreateToDoItem(new CreateToDoItemModel { Notes = "test", ToDoListId = 1 }, Version);
+            IActionResult result = await controller.CreateToDoItem(new CreateToDoItemModel { Notes = "test", ToDoListId = 1 });
             ObjectResult response = result as ObjectResult;
             Assert.AreEqual(StatusCodes.Status201Created, (int)response.StatusCode);
         }

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.JsonPatch.Operations;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Filters;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -137,7 +138,6 @@ namespace Adform_ToDo.API.Controllers.v1
         /// Create todoitem record.
         /// </summary>
         /// <param name="createToDoItem"></param>
-        /// <param name="version"></param>
         /// <returns>Returns Action result type based on Success/Failure.</returns>
         /// <response code="201"> Creates todoitem reecord and returns location where it is created.</response>
         /// <response code="401"> Authorization information is missing or invalid.</response>
@@ -147,7 +147,7 @@ namespace Adform_ToDo.API.Controllers.v1
         [ProducesResponseType(typeof(ToDoItemDto), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPost]
-        public async Task<IActionResult> CreateToDoItem(CreateToDoItemModel createToDoItem, ApiVersion version)
+        public async Task<IActionResult> CreateToDoItem(CreateToDoItemModel createToDoItem)
         {
             long userId = long.Parse(HttpContext.Items["UserId"].ToString());
             if (createToDoItem == null || string.IsNullOrEmpty(createToDoItem.Notes)
@@ -163,7 +163,8 @@ namespace Adform_ToDo.API.Controllers.v1
             createToDoItem.CreatedBy = userId;
             CreateToDoItemDto createToDoItemDto = _mapper.Map<CreateToDoItemDto>(createToDoItem);
             ToDoItemDto createdToDoItem = await _toDoItemManager.AddToDoItem(createToDoItemDto);
-            return CreatedAtRoute(new { createdToDoItem.ToDoItemId, version = $"{version}" }, createdToDoItem);
+            var uriPath = new Uri(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host.Value + HttpContext.Request.Path.Value + "/" + createdToDoItem.ToDoItemId);
+            return Created(uriPath, createdToDoItem);
         }
 
         /// <summary>

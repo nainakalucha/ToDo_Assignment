@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
 using System.Threading.Tasks;
 
 namespace Adform_ToDo.API.Controllers.v1
@@ -129,7 +130,6 @@ namespace Adform_ToDo.API.Controllers.v1
         /// Create Label record.
         /// </summary>
         /// <param name="createLabelModel"></param>
-        /// <param name="version"></param>
         /// <returns>Returns Action result type based on Success/Failure.</returns>
         /// <response code="201"> Creates Label and returns location where it is created.</response>
         /// <response code="400"> Invalid request format.</response>
@@ -139,7 +139,7 @@ namespace Adform_ToDo.API.Controllers.v1
         [ProducesResponseType(typeof(LabelDto), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPost]
-        public async Task<IActionResult> CreateLabel(CreateLabelModel createLabelModel, ApiVersion version)
+        public async Task<IActionResult> CreateLabel(CreateLabelModel createLabelModel)
         {
             long userId = long.Parse(HttpContext.Items["UserId"].ToString());
             if (createLabelModel == null || string.IsNullOrEmpty(createLabelModel.Description))
@@ -163,7 +163,8 @@ namespace Adform_ToDo.API.Controllers.v1
                     Message = "The Label already exists. Try another one."
                 });
             }
-            return CreatedAtRoute(new { createdLabel.LabelId, version = $"{version}" }, createdLabel);
+            var uriPath = new Uri(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host.Value + HttpContext.Request.Path.Value + "/" + createdLabel.LabelId);
+            return Created(uriPath, createdLabel);
         }
 
         /// <summary>

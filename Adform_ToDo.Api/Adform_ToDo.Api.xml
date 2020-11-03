@@ -64,12 +64,11 @@
             <response code="404"> A label with the specified label ID was not found.</response>
             <response code="401"> Authorization information is missing or invalid.</response>
         </member>
-        <member name="M:Adform_ToDo.API.Controllers.v1.LabelsController.CreateLabel(Adform_Todo.Common.Models.CreateLabelModel,Microsoft.AspNetCore.Mvc.ApiVersion)">
+        <member name="M:Adform_ToDo.API.Controllers.v1.LabelsController.CreateLabel(Adform_Todo.Common.Models.CreateLabelModel)">
             <summary>
             Create Label record.
             </summary>
             <param name="createLabelModel"></param>
-            <param name="version"></param>
             <returns>Returns Action result type based on Success/Failure.</returns>
             <response code="201"> Creates Label and returns location where it is created.</response>
             <response code="400"> Invalid request format.</response>
@@ -117,12 +116,11 @@
             <response code="404"> Error: 404 not found.</response>
             <response code="401"> Authorization information is missing or invalid.</response>
         </member>
-        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoItemsController.CreateToDoItem(Adform_Todo.Common.Models.CreateToDoItemModel,Microsoft.AspNetCore.Mvc.ApiVersion)">
+        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoItemsController.CreateToDoItem(Adform_Todo.Common.Models.CreateToDoItemModel)">
             <summary>
             Create todoitem record.
             </summary>
             <param name="createToDoItem"></param>
-            <param name="version"></param>
             <returns>Returns Action result type based on Success/Failure.</returns>
             <response code="201"> Creates todoitem reecord and returns location where it is created.</response>
             <response code="401"> Authorization information is missing or invalid.</response>
@@ -204,12 +202,11 @@
             <response code="404"> A record with the specified todolist ID was not found.</response>
             <response code="401"> Authorization information is missing or invalid.</response>
         </member>
-        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoListsController.CreateToDoList(Adform_Todo.Common.Models.CreateToDoListModel,Microsoft.AspNetCore.Mvc.ApiVersion)">
+        <member name="M:Adform_ToDo.API.Controllers.v1.ToDoListsController.CreateToDoList(Adform_Todo.Common.Models.CreateToDoListModel)">
             <summary>
             Create todolist record.
             </summary>
             <param name="createToDoList"></param>
-            <param name="version"></param>
             <returns>Returns Action result type based on Success/Failure.</returns>
             <response code="201"> Creates todolist record and returns the location where created.</response>
             <response code="401"> Authorization information is missing or invalid.</response>

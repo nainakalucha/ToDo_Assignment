@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.JsonPatch.Operations;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Filters;
+using System;
 using System.Threading.Tasks;
 
 namespace Adform_ToDo.API.Controllers.v1
@@ -133,7 +134,6 @@ namespace Adform_ToDo.API.Controllers.v1
         /// Create todolist record.
         /// </summary>
         /// <param name="createToDoList"></param>
-        /// <param name="version"></param>
         /// <returns>Returns Action result type based on Success/Failure.</returns>
         /// <response code="201"> Creates todolist record and returns the location where created.</response>
         /// <response code="401"> Authorization information is missing or invalid.</response>
@@ -143,7 +143,7 @@ namespace Adform_ToDo.API.Controllers.v1
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ToDoListModel), StatusCodes.Status201Created)]
         [HttpPost]
-        public async Task<IActionResult> CreateToDoList(CreateToDoListModel createToDoList, ApiVersion version)
+        public async Task<IActionResult> CreateToDoList(CreateToDoListModel createToDoList)
         {
             long userId = long.Parse(HttpContext.Items["UserId"].ToString());
             if (createToDoList == null || string.IsNullOrWhiteSpace(createToDoList.Description))
@@ -160,7 +160,8 @@ namespace Adform_ToDo.API.Controllers.v1
             CreateToDoListDto createToDoListDto = _mapper.Map<CreateToDoListDto>(createToDoList);
             ToDoListDto createdToDoList = await _toDoListManager.CreateToDoList(createToDoListDto);
             ToDoListModel createdToDoListModel = _mapper.Map<ToDoListModel>(createdToDoList);
-            return CreatedAtRoute(new { createdToDoListModel.ToDoListId, version = $"{version}" }, createdToDoListModel);
+            var uriPath = new Uri(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host.Value + HttpContext.Request.Path.Value + "/" + createdToDoListModel.ToDoListId);
+            return Created(uriPath, createdToDoListModel);
         }
 
         /// <summary>
